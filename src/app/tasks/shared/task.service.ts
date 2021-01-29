@@ -16,14 +16,18 @@ const tasks: Array<Task> = [
 export class TaskService {
 
   public getTasks():Promise<Array<Task>> {
-    let promise:Promise<Task[]> = new Promise(function(resolve, reject){
+    let promise:Promise<Task[]> = new Promise((resolve, reject) => {
       if (tasks.length > 0){
-        setTimeout(() => resolve(tasks), 1500); //setTimeout para simular servidor
+        setTimeout(() => resolve(tasks), 500); //setTimeout para simular servidor
       }else{
         reject([{ id: 0, title: "Não há terefas a serem apresentadas" }]);
       }
     })
     return promise;
+  }
+
+  public getImportantTasks(): Promise<Task[]> {
+    return Promise.resolve(tasks.slice(0, 3));
   }
 
 }

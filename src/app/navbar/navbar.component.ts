@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 
 export class NavbarComponent {
 
-  public taskTitle: string = "Task Manager";
-
   public constructor() {
   }
 
