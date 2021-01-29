@@ -1,17 +1,31 @@
-import { Component, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 import { Task } from "../shared/task.model";
+import { TaskService } from "../shared/task.service";
 
 @Component({
   selector: 'task-detail',
   templateUrl: 'task-detail.component.html'
 })
-export class TaskDetailComponent {
+export class TaskDetailComponent implements OnInit {
 
-  @Input()
   public task: Task;
+  public taskId: number;
 
-  public constructor(){
+  public constructor(
+    private taskService: TaskService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => this.taskId = params['id']); //pegar o :id da rota
+    this.taskService.getTask(this.taskId).then(task => this.task = task);
   }
-  
+
+  public goBack(){
+    this.location.back();
+  }
 }
