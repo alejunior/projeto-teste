@@ -6,25 +6,21 @@ import { TaskService } from "./shared/task.service";
 @Component({
   selector: 'tasks',
   templateUrl: './tasks.component.html'
-  //providers: [ { provide: TaskService, useClass: TaskService } ]
 })
 export class TasksComponent implements OnInit {
 
   public tasks: Array<Task>;
   public selectedTask: Task;
 
-  private taskService: TaskService
-
-  public constructor(obj: TaskService) {
-    this.taskService = obj;
-  }
+  public constructor(private taskService: TaskService) { }
 
   public ngOnInit() {
+
     this.taskService.getTasks()
-      .then( (tasks) => this.tasks = tasks)
-      .catch( (obj: Task[]) => {
-        this.tasks = obj;
-       });
+      .subscribe(
+        res => this.tasks = res,
+        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err)},
+      )
   }
 
   public onSelect(task: Task): void {

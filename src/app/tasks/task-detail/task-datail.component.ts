@@ -22,7 +22,11 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.taskId = params['id']); //pegar o :id da rota
-    this.taskService.getTask(this.taskId).then(task => this.task = task);
+    this.taskService.getTask(this.taskId)
+      .subscribe(
+        res => this.task = res,
+        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) },
+      )
   }
 
   public goBack(){
