@@ -29,7 +29,19 @@ export class TaskDetailComponent implements OnInit {
       )
   }
 
-  public goBack(){
+  public goBack() {
     this.location.back();
+  }
+
+  public updateTask() {
+    if (!this.task.title) {
+      alert("A tarefa deve conter um título.")
+    } else {
+      this.taskService.updateTask(this.task)
+        .subscribe(
+          () => { alert("Salvo com sucesso.") },
+          err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) },
+        )
+    }
   }
 }

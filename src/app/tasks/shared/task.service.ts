@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'
@@ -33,7 +33,30 @@ export class TaskService {
       .pipe(
         catchError((err: Response) => throwError(err))
       )
+  }
 
+  public createTask(newTask: Task): Observable<Task> {
+    const url = this.tasksUrl;
+    const boby = newTask;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+
+    return this.http.post<Task>(url, boby, { headers })
+      .pipe(
+        map((newTask: Task) => newTask),
+        catchError((err: Response) => throwError(err))
+      )
+  }
+
+  public updateTask(task: Task): Observable<Task> {
+    const url = `${this.tasksUrl}/${task.id}`;
+    const boby = task;
+    const headers = new HttpHeaders().set("Content-Type", "application/json");
+
+    return this.http.put<Task>(url, boby, { headers })
+      .pipe(
+        map((task: Task) => task),
+        catchError((err: Response) => throwError(err))
+      )
   }
 
 }

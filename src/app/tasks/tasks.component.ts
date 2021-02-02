@@ -10,20 +10,35 @@ import { TaskService } from "./shared/task.service";
 export class TasksComponent implements OnInit {
 
   public tasks: Array<Task>;
-  public selectedTask: Task;
+  public newTask: Task;
 
-  public constructor(private taskService: TaskService) { }
+  public constructor(private taskService: TaskService) {
+    this.newTask = new Task(9, '');
+   }
 
   public ngOnInit() {
 
     this.taskService.getTasks()
       .subscribe(
-        res => this.tasks = res,
-        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err)},
+        tasks => this.tasks = tasks,
+        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err)}
       )
   }
 
-  public onSelect(task: Task): void {
-    this.selectedTask = task;
+  public createTask(){
+    this.newTask.title = this.newTask.title.trim();
+    if(!this.newTask.title) {
+      alert('A Tarefa deve conter um título.')
+    }else{
+      this.taskService.createTask(this.newTask)
+        .subscribe(
+          newTask => { 
+            this.tasks.push(newTask); // adicionando tarefa na lista da tela
+            this.newTask = new Task(null, ''); // limpando o input
+            alert("Tarefa criada com sucesso.");
+          },
+          err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) }
+        )
+    }
   }
 }
