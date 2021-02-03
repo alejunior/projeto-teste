@@ -14,6 +14,7 @@ export class InMemoryTaskDataService implements InMemoryDbService{
       { id: 5, title: 'Assistir aula sobre Angular' },
       { id: 6, title: 'Comprar Pizza' },
       { id: 7, title: 'Pagar Aluguel' },
+      { id: 8, title: 'Enviar encomenda por correios' }
     ];
 
     return { tasks };
