@@ -8,18 +8,11 @@
     <ul class="navbar-nav">
       <li routerLinkActive="active"><a class="nav-link" routerLink="/dashboard">Dashboard</a></li>
       <li routerLinkActive="active"><a class="nav-link" routerLink="/tasks">Tarefas</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Outro Link</a></li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Menu Links
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Ação</a>
-          <a class="dropdown-item" href="#">Outra ação</a>
-          <a class="dropdown-item" href="#">Algo mais aqui</a>
-        </div>
-      </li>
     </ul>
+
+    <div style="position: absolute; right: 0; margin-right: 30px; margin-top: 30px;">
+      <task-search></task-search>
+    </div>
+
   </div>
 </nav>

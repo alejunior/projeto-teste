@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component'
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskDetailComponent } from './tasks/task-detail/task-datail.component';
+import { TaskSearchComponent } from './navbar/task-search/task-search.component';
 
 // services imports
 import { TaskService } from "./tasks/shared/task.service";
@@ -27,7 +28,8 @@ import { InMemoryTaskDataService } from './in-memry-task-data.service';
     DashboardComponent,
     NavbarComponent,
     TasksComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    TaskSearchComponent
   ],
   imports: [
     AppRoutingModule,

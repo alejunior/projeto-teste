@@ -12,7 +12,6 @@ import { TaskService } from "../shared/task.service";
 export class TaskDetailComponent implements OnInit {
 
   public task: Task;
-  public taskId: number;
 
   public constructor(
     private taskService: TaskService,
@@ -21,8 +20,9 @@ export class TaskDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => this.taskId = params['id']); //pegar o :id da rota
-    this.taskService.getTask(this.taskId)
+    let id: number;
+    this.route.params.subscribe((params) => id = params['id']); //pegar o :id da rota
+    this.taskService.getTask(id)
       .subscribe(
         res => this.task = res,
         err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) },
