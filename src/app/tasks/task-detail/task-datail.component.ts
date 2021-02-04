@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
@@ -9,43 +9,44 @@ import { TaskService } from "../shared/task.service";
   selector: 'task-detail',
   templateUrl: 'task-detail.component.html'
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, AfterViewInit {
+  
+  public task: Task = {id: null, title: null};
 
-  public task: Task;
   public taskDoneOptions: Array<any> = [
     { value: false, text: "Pendente" },
-    { value: true, text: "Pronto"}
+    { value: true, text: "Pronto" }
   ]
-
+  
   public constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
     private location: Location
   ) { }
 
-  ngOnInit(): void {
+  public ngAfterViewInit(): void {
+    // aguarda o templete ser carregado para iniciar  que estiver aqui.
+  }
+
+  public ngOnInit(): void {
     let id: number;
     this.route.params.subscribe((params) => id = params['id']); //pegar o :id da rota
     this.taskService.getTask(id)
       .subscribe(
-        res => this.task = res,
-        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) },
+        task => this.task = task,
+        err => { alert("servidor indisponível, tente mais tarde."), console.log(err) },
       )
-  }
+    }
 
   public goBack() {
     this.location.back();
   }
 
   public updateTask() {
-    if (!this.task.title) {
-      alert("A tarefa deve conter um título.")
-    } else {
-      this.taskService.updateTask(this.task)
-        .subscribe(
-          () => { alert("Salvo com sucesso.") },
-          err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) },
-        )
-    }
+    this.taskService.updateTask(this.task)
+      .subscribe(
+        () => { alert("Salvo com sucesso.") },
+        err => { alert("servidor indisponível, tente mais tarde."), console.log(err) },
+      )
   }
 }

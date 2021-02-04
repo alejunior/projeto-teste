@@ -20,7 +20,7 @@ export class TasksComponent implements OnInit {
 
     this.taskService.getTasks()
       .subscribe(
-        tasks => this.tasks = tasks,
+        tasks => this.tasks = tasks.sort((a, b)=> b.id - a.id), //traz array na ordem inversa
         err => { alert("Erro no servidor. Tente mais tarde."), console.log(err)}
       )
   }
@@ -33,9 +33,8 @@ export class TasksComponent implements OnInit {
       this.taskService.createTask(this.newTask)
         .subscribe(
           newTask => { 
-            this.tasks.push(newTask); // adicionando tarefa na lista da tela
+            this.tasks.unshift(newTask); // adicionando tarefa no início do array
             this.newTask = new Task(null, ''); // limpando o input
-            alert("Tarefa criada com sucesso.");
           },
           err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) }
         )
@@ -47,7 +46,6 @@ export class TasksComponent implements OnInit {
       this.taskService.deleteTask(task.id)
         .subscribe(
           () => { 
-            alert("Excluido com sucesso.");
             this.tasks = this.tasks.filter(t => t !== task);
           },
           err => { alert("Erro no servidor."), console.log(err) }
