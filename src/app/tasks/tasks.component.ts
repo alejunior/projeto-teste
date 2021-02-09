@@ -21,24 +21,20 @@ export class TasksComponent implements OnInit {
     this.taskService.getTasks()
       .subscribe(
         tasks => this.tasks = tasks.sort((a, b)=> b.id - a.id), //traz array na ordem inversa
-        err => { alert("Erro no servidor. Tente mais tarde."), console.log(err)}
+        err => { alert("Erro no servidor"), console.log(err)}
       )
   }
 
   public createTask(){
     this.newTask.title = this.newTask.title.trim();
-    if(!this.newTask.title) {
-      alert('A Tarefa deve conter um título.')
-    }else{
-      this.taskService.createTask(this.newTask)
-        .subscribe(
-          newTask => { 
-            this.tasks.unshift(newTask); // adicionando tarefa no início do array
-            this.newTask = new Task(null, ''); // limpando o input
-          },
-          err => { alert("Erro no servidor. Tente mais tarde."), console.log(err) }
-        )
-    }
+    this.taskService.createTask(this.newTask)
+      .subscribe(
+        newTask => { 
+          this.tasks.unshift(newTask); // adicionando tarefa no início do array
+          this.newTask = new Task(null, ''); // limpando o input
+        },
+        err => { alert("servidor indisponível, tente mais tarde"), console.log(err) }
+      )
   }
 
   public deleteTask(task:Task) {

@@ -1,6 +1,6 @@
 // angular imports
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core';
 
@@ -36,7 +36,8 @@ import { InMemoryTaskDataService } from './in-memry-task-data.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
+    InMemoryWebApiModule.forRoot(InMemoryTaskDataService),
+    ReactiveFormsModule
   ],
   providers: [ 
     TaskService
