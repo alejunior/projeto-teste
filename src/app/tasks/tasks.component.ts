@@ -12,8 +12,10 @@ export class TasksComponent implements OnInit {
   public tasks: Array<Task>;
   public newTask: Task;
 
-  public constructor(private taskService: TaskService) {
-    this.newTask = new Task(9, '');
+  public constructor(
+    private taskService: TaskService
+    ) {
+    this.newTask = new Task(null, null);
    }
 
   public ngOnInit() {

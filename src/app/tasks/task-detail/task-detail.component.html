@@ -7,7 +7,7 @@
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="control-label">Título:</label>
-      <input type="text" formControlName='title' id="title" class="form-control" [ngClass]="fieldClassError('title')">
+      <input type="text" formControlName='title' id="title" class="form-control" [ngClass]="formUtils.fieldClassError('title')">
       <div *ngIf="reactiveTaskForm.get('title').invalid && (reactiveTaskForm.get('title').touched || reactiveTaskForm.get('title').dirty)" class="text-danger" style="font-size: 12px;">
         <div *ngIf="reactiveTaskForm.get('title').errors.required">o título é obrigatório</div>
         <div *ngIf="reactiveTaskForm.get('title').errors.minlength">o título deve conter no mínimo 10 caracteres</div>
@@ -17,12 +17,12 @@
 
     <div class="form-group col-md-3">
       <label for="deadline" class="control-label">Prazo de entrega</label>
-      <input type="text" formControlName='deadline' id="deadline" class="form-control" [ngClass]="fieldClassError('deadline')">
+      <input type="text" formControlName='deadline' id="deadline" class="form-control" [ngClass]="formUtils.fieldClassError('deadline')">
     </div>
 
     <div class="form-group col-md-3">
       <label for="done" class="control-label">Situação da entrega</label>
-      <select class="form-control" id="done" formControlName="done" [ngClass]="fieldClassError('done')">
+      <select class="form-control" id="done" formControlName="done" [ngClass]="formUtils.fieldClassError('done')">
         <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{ option.text }}</option>
       </select>
     </div>
@@ -31,14 +31,14 @@
   <div class="row">
     <div class="form-group col-md-12">
       <label for="description" class="control-label">Descrição</label>
-      <textarea class="form-control" id="description" formControlName="description" rows="4"></textarea>
+      <textarea class="form-control placeStyle" id="description" formControlName="description" rows="4" placeholder="detalhe aqui sua tarefa..."></textarea>
     </div>
   </div>
   
   <div class="row" formGroupName="user">
     <div class="form-group col-md-6">
       <label for="name" class="control-label">Nome do usuário:</label>
-      <input type="text" formControlName="name" id="name" class="form-control" [ngClass]="fieldClassError('user.name')">
+      <input type="text" formControlName="name" id="name" class="form-control" [ngClass]="formUtils.fieldClassError('user.name')">
       <div *ngIf="reactiveTaskForm.get('user.name').invalid && (reactiveTaskForm.get('user.name').touched || reactiveTaskForm.get('user.name').dirty)" class="text-danger" style="font-size: 12px;">
         <div *ngIf="reactiveTaskForm.get('user.name').errors.required">o nome é obrigatório</div>
         <div *ngIf="reactiveTaskForm.get('user.name').errors.minlength">o nome deve conter no mínimo 10 caracteres</div>
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="email" class="control-label">Email do usuário:</label>
-      <input type="email" formControlName='email' id="email" class="form-control" [ngClass]="fieldClassError('user.email')">
+      <input type="email" formControlName='email' id="email" class="form-control" [ngClass]="formUtils.fieldClassError('user.email')">
       <div *ngIf="reactiveTaskForm.get('user.email').invalid && (reactiveTaskForm.get('user.email').touched || reactiveTaskForm.get('user.email').dirty)" class="text-danger" style="font-size: 12px;">
         <div *ngIf="reactiveTaskForm.get('user.email').errors.email">o email está incorreto</div>
       </div>

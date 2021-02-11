@@ -3,12 +3,14 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { FormUtils } from "src/app/shared/form.util";
 import { Task } from "../shared/task.model";
 import { TaskService } from "../shared/task.service";
 
 @Component({
   selector: 'task-detail',
-  templateUrl: 'task-detail.component.html'
+  templateUrl: './task-detail.component.html',
+  styleUrls: ['./task-detail.component.css']
 })
 export class TaskDetailComponent implements OnInit, AfterViewInit {
   
@@ -17,6 +19,8 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   public taskDoneOptions: Array<any>;
   
   public reactiveTaskForm: FormGroup;
+
+  public formUtils: FormUtils;
   
   public constructor(
     private taskService: TaskService,
@@ -41,6 +45,8 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
         email: [null, [Validators.required, Validators.email]]
       })
     });
+
+    this.formUtils = new FormUtils(this.reactiveTaskForm);
   }
   
   public ngOnInit(): void {
@@ -70,7 +76,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    // aguarda o templete ser carregado para iniciar  que estiver aqui.
+    // aguarda o templete ser carregado para iniciar o que estiver aqui.
   }
     
   public goBack() {
@@ -86,11 +92,4 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
       )
   }
 
-  // validação do template
-  public fieldClassError(fieldName: string) {
-    return {
-      "is-invalid": this.reactiveTaskForm.get(fieldName).invalid && (this.reactiveTaskForm.get(fieldName).touched || this.reactiveTaskForm.get(fieldName).dirty),
-      "is-valid": this.reactiveTaskForm.get(fieldName).valid && (this.reactiveTaskForm.get(fieldName).touched || this.reactiveTaskForm.get(fieldName).dirty)
-    }
-  }
 }
