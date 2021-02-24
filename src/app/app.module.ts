@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core';
-import { Angular2TokenService } from 'angular2-token';
+import { AngularTokenService } from 'angular-token';
 
 // components imports
 import { AppComponent } from './app.component';
@@ -46,7 +46,7 @@ import { InMemoryTaskDataService } from './in-memry-task-data.service';
     ReactiveFormsModule
   ],
   providers: [
-    Angular2TokenService,
+    AngularTokenService,
     AuthService,
     TaskService
   ],
